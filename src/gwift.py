@@ -9,16 +9,11 @@ from flask_peewee.admin import Admin
 from api_resources import ItemResource, UserResource
 
 import datetime
+import config
 
-DATABASE = {
-	'name' : 'example.db',
-	'engine' : 'peewee.SqliteDatabase',
-}
-
-DEBUG = True
 
 app = Flask(__name__, static_folder='static', static_url_path='') # création de l'appli Flask
-app.config.from_object(__name__)
+app.config.from_object(config)
 
 db = Database(app)
 
