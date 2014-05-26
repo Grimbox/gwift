@@ -7,10 +7,12 @@ Creating a new user
 
 First of all, don't forget to set the `SECRET_KEY` parameter in the `config.py` file: user password will be salted.
 
-	from app import auth
-	auth.User.create_table(fail_silently=True)  # make sure table created.
-	admin = auth.User(username='admin', email='', admin=True, active=True)
-	admin.set_password('admin')
-	admin.save()
+```python
+from app import auth
+auth.User.create_table(fail_silently=True)  # make sure table created.
+admin = auth.User(username='admin', email='', admin=True, active=True)
+admin.set_password('admin')
+admin.save()
+```
 
 After this step, you will be able to access the admin area, through the /admin url.
