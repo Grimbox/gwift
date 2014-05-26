@@ -5,7 +5,7 @@ from flask_peewee.auth import Auth
 from flask_peewee.auth import BaseUser
 from flask_peewee.db import Database
 from peewee import SqliteDatabase, Model, CharField, DateField, ForeignKeyField, DateTimeField, BooleanField, DecimalField, IntegerField
-
+from flask_peewee.admin import Admin
 from api_resources import ItemResource, UserResource
 
 import datetime
@@ -47,6 +47,12 @@ auth = Auth(app, db)
 
 user_auth = UserAuthentication(auth)
 
+admin = Admin(app, auth)
+
+admin.register(WishList)
+admin.register(Item)
+admin.register(Part)
+
 api = RestAPI(app, default_auth=user_auth)
 
 api.register(WishList)
@@ -54,6 +60,7 @@ api.register(Item, ItemResource)
 api.register(Part)
 api.register(UserBidule, UserResource)
 
+admin.setup()
 api.setup()
 
 @app.route('/') 
