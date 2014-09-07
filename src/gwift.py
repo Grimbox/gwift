@@ -10,14 +10,12 @@ from api_resources import ItemResource, UserResource
 import datetime
 import config
 
-
 app = Flask(__name__, static_folder='static', static_url_path='')
 app.config.from_object(config)
 
 db = Database(app)
 
 auth = Auth(app, db)
-user_auth = UserAuthentication(auth)
 
 class WishList(db.Model):
     """
@@ -63,6 +61,7 @@ admin.register(Part)
 
 
 # api part
+user_auth = UserAuthentication(auth)
 api = RestAPI(app, default_auth=user_auth)
 
 api.register(WishList)
@@ -79,7 +78,6 @@ def index():
 	
 if __name__ == '__main__':	 
 	auth.User.create_table(fail_silently=True)
-	
 	WishList.create_table(fail_silently=True)
 	Item.create_table(fail_silently=True)
 	Part.create_table(fail_silently=True)
